@@ -1,9 +1,10 @@
 package com.sahydo.bookingapp.presentation.rest.exception;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
 
-public @Data class BookingRequestError {
-	private final EnumErrorCode code;
-	private final String field;
-	private final String message;
+@AllArgsConstructor
+public class BookingRequestError {
+	public final EnumErrorCode code;
+	public final String field;
+	public final String message;
 }
