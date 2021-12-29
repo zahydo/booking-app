@@ -31,7 +31,7 @@ public class BookingRequestImplService implements IBookingRequestService {
 	public BookingRequest findById(Long id) throws ResourceNotFoundException {
 		BookingRequest bookingRequest = bookingRequestDAO.findById(id).orElse(null);
 		if (bookingRequest == null) {
-			throw new ResourceNotFoundException();
+			throw new ResourceNotFoundException(id);
 		}
 		return bookingRequest;
 	}

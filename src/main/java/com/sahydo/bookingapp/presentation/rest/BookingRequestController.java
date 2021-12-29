@@ -45,9 +45,7 @@ public class BookingRequestController {
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public BookingRequest findById(@PathVariable Long id) throws ResourceNotFoundException {
-
-		BookingRequest BookingRequest = bookingRequestService.findById(id);
-		return BookingRequest;
+		return bookingRequestService.findById(id);
 	}
 
 	/**
