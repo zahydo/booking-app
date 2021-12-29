@@ -15,6 +15,10 @@ import com.sahydo.bookingapp.presentation.rest.exception.ResourceNotFoundExcepti
 import com.sahydo.bookingapp.domain.model.BookingRequest;
 import com.sahydo.bookingapp.presentation.rest.exception.BookingErrorDomainException;
 
+/**
+ * @author Santiago Hyun
+ */
+
 @RestController
 @RequestMapping("bookingRequests")
 public class BookingRequestController {
