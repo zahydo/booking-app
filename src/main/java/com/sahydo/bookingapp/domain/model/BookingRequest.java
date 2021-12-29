@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -50,6 +51,9 @@ public @Data class BookingRequest implements Serializable {
 	private Integer totalDays;
 	@NotNull(message = "Holder Name is required")
 	private String holderName;
+	@NotNull(message = "Holder Email is required")
+	@Email
+	private String holderEmail;
 	@NotNull(message = "Number of People is required")
 	@Min(value = 1, message = "Number of People must be greater than 0")
 	private Integer numberOfPeople;
