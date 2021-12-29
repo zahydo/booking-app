@@ -1,8 +1,12 @@
 package com.sahydo.bookingapp.presentation.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sahydo.bookingapp.domain.service.IBookingRequestService;
 import com.sahydo.bookingapp.presentation.rest.exception.ResourceNotFoundException;
 import com.sahydo.bookingapp.domain.model.BookingRequest;
+import com.sahydo.bookingapp.domain.model.wrapper.BookingRequestWrapper;
 import com.sahydo.bookingapp.presentation.rest.exception.BookingErrorDomainException;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 /**
  * @author Santiago Hyun
@@ -31,8 +37,18 @@ public class BookingRequestController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public List<BookingRequest> findAll() {
-		return (List<BookingRequest>) bookingRequestService.findAll();
+	public HttpEntity<List<BookingRequestWrapper>> findAll() {
+		List<BookingRequestWrapper> bookingRequests = new ArrayList<>();
+		bookingRequestService.findAll().stream().forEach(br -> {
+			BookingRequestWrapper wrapper = new BookingRequestWrapper(br);
+			try {
+				wrapper.add(linkTo(methodOn(BookingRequestController.class).findById(br.getId())).withSelfRel());
+			} catch (ResourceNotFoundException e) {
+				e.printStackTrace();
+			}
+			bookingRequests.add(wrapper);
+		});
+		return new ResponseEntity<>(bookingRequests, HttpStatus.OK);
 	}
 
 	/**
@@ -44,8 +60,11 @@ public class BookingRequestController {
 	 */
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public BookingRequest findById(@PathVariable Long id) throws ResourceNotFoundException {
-		return bookingRequestService.findById(id);
+	public HttpEntity<BookingRequestWrapper> findById(@PathVariable Long id) throws ResourceNotFoundException {
+		BookingRequest bookingRequest = bookingRequestService.findById(id);
+		BookingRequestWrapper wrapper = new BookingRequestWrapper(bookingRequest);
+		wrapper.add(linkTo(methodOn(BookingRequestController.class).findById(id)).withSelfRel());
+		return new ResponseEntity<>(wrapper, HttpStatus.OK);
 	}
 
 	/**
@@ -57,8 +76,12 @@ public class BookingRequestController {
 
 	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public BookingRequest create(@RequestBody BookingRequest BookingRequest) throws BookingErrorDomainException {
-		return bookingRequestService.create(BookingRequest);
+	public HttpEntity<BookingRequestWrapper> create(@RequestBody BookingRequest bookingRequest)
+			throws BookingErrorDomainException {
+		BookingRequest bookingRequestCreated = bookingRequestService.create(bookingRequest);
+		BookingRequestWrapper wrapper = new BookingRequestWrapper(bookingRequestCreated);
+		wrapper.add(linkTo(methodOn(BookingRequestController.class).create(bookingRequest)).withSelfRel());
+		return new ResponseEntity<>(wrapper, HttpStatus.OK);
 	}
 
 }
