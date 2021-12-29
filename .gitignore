@@ -39,3 +39,6 @@ replay_pid*
 
 # FOR OS
 .DS_Store
+
+# FOR IDEs
+.settings
