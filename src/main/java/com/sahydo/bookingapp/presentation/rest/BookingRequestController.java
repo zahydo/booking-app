@@ -72,15 +72,16 @@ public class BookingRequestController {
 	 * 
 	 * @param BookingRequest JSON
 	 * @return BookingRequesto JSON
+	 * @throws ResourceNotFoundException 
 	 */
 
 	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public HttpEntity<BookingRequestWrapper> create(@RequestBody BookingRequest bookingRequest)
-			throws BookingErrorDomainException {
+			throws BookingErrorDomainException, ResourceNotFoundException {
 		BookingRequest bookingRequestCreated = bookingRequestService.create(bookingRequest);
 		BookingRequestWrapper wrapper = new BookingRequestWrapper(bookingRequestCreated);
-		wrapper.add(linkTo(methodOn(BookingRequestController.class).create(bookingRequest)).withSelfRel());
+		wrapper.add(linkTo(methodOn(BookingRequestController.class).findById(bookingRequestCreated.getId())).withSelfRel());
 		return new ResponseEntity<>(wrapper, HttpStatus.OK);
 	}
 

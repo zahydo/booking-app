@@ -33,8 +33,8 @@ public class EmailImplService implements IEmailService {
 	
 	private String getErrorMessageFromBookingErrors(List<BookingRequestError> errors) {
 		String message = "The Booking Request was not processed due to the next problems: \n";
-		List<String> errorMessages = errors.stream().map(error -> error.message.concat("\n")).collect(Collectors.toList());
-		return String.join(message, errorMessages);
+		List<String> errorMessages = errors.stream().map(error -> "\n" + error.message.concat(" ")).collect(Collectors.toList());
+		return message.concat(String.join(" ", errorMessages));
 	}
 
 }

@@ -18,11 +18,13 @@ import javax.validation.constraints.Min;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import com.sahydo.bookingapp.utilities.DateTimeUtil;
+
 import lombok.Data;
 
 /**
  * @author Santiago Hyun
- * */
+ */
 @Entity
 @Table(name = "bookingRequests")
 public @Data class BookingRequest implements Serializable {
@@ -46,7 +48,6 @@ public @Data class BookingRequest implements Serializable {
 	@DateTimeFormat(iso = ISO.DATE, pattern = "yyyy-MM-dd")
 	@NotNull(message = "Checkout Date is required")
 	private Date checkOutDate;
-	@NotNull(message = "Total Days is required")
 	@Min(value = 1, message = "Total Days must be greater than 0")
 	private Integer totalDays;
 	@NotNull(message = "Holder Name is required")
@@ -59,4 +60,11 @@ public @Data class BookingRequest implements Serializable {
 	private Integer numberOfPeople;
 	private Integer numberOfRooms = 1;
 	private Integer numberOfMinors = 0;
+
+	@Override
+	public String toString() {
+		return String.format(" %s - %s (%d days)%n %s: %d people, %d rooms and %d children",
+				DateTimeUtil.dateFormatYYYYMMDD(checkInDate), DateTimeUtil.dateFormatYYYYMMDD(checkOutDate), totalDays,
+				holderName, numberOfPeople, numberOfRooms, numberOfMinors);
+	}
 }
