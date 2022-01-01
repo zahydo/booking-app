@@ -1,0 +1,46 @@
+version: "3.9"
+services: 
+  mysql-db:
+    image: mysql
+    container_name: booking_app_db_container
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: booking_app_db
+    networks:
+      - backend_net
+
+  api:
+    build: ./api
+    container_name: booking_app_api_container
+    restart: always
+    environment:
+      - DATABASE_HOST=booking_app_db_container
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=12345678
+      - DATABASE_NAME=booking_app_db
+      - DATABASE_PORT=3306
+      - MAIL_USERNAME=santiagodorado@unicauca.edu.co
+      - MAIL_PASSWORD=vqolkxtldgogklfc
+    ports:
+     - "8080:8080"
+    depends_on:
+      - mysql-db
+    networks:
+      - backend_net
+
+  rabbitmq:
+    container_name: booking_app_rabbitmq_container
+    restart: always
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - rabbitmq_net
+networks:
+  backend_net:
+    driver: bridge
+  rabbitmq_net:
+    driver: bridge
