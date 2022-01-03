@@ -67,11 +67,11 @@ public class BookingRequestImplService implements IBookingRequestService {
 	private List<BookingRequestError> validateBookingRequest(final BookingRequest bookingRequest) {
 		List<BookingRequestError> errors = new ArrayList<>();
 		Date currentDate = new Date();
-		if (bookingRequest.getCheckInDate().before(currentDate)) {
+		if (bookingRequest.getCheckInDate() != null && bookingRequest.getCheckInDate().before(currentDate)) {
 			errors.add(new BookingRequestError(EnumErrorCode.INVALID_FIELD, "Checkin Date",
 					"The Checkin date must be greater than current date"));
 		}
-		if (bookingRequest.getCheckOutDate().before(bookingRequest.getCheckInDate())) {
+		if (bookingRequest.getCheckOutDate() != null && bookingRequest.getCheckOutDate().before(bookingRequest.getCheckInDate())) {
 			errors.add(new BookingRequestError(EnumErrorCode.INVALID_FIELD, "Checkout Date",
 					"The Checkout date must be greater than Checkin date"));
 		}

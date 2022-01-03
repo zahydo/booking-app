@@ -3,11 +3,12 @@ package com.sahydo.bookingapp.producer.domain.service;
 import java.util.List;
 
 import com.sahydo.bookingapp.producer.domain.model.BookingRequest;
+import com.sahydo.bookingapp.producer.domain.model.BookingRequestWrapper;
 
 public interface IBookingRequestService {
-	public List<BookingRequest> findAll();
+	public List<BookingRequestWrapper> findAll();
 
-	public BookingRequest findById(Long id);
+	public BookingRequestWrapper findById(Long id);
 
 	public BookingRequest create(BookingRequest BookingRequest);
 }

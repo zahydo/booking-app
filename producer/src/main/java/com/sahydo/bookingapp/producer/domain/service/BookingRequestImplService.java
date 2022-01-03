@@ -4,10 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.sahydo.bookingapp.producer.domain.model.BookingRequest;
+import com.sahydo.bookingapp.producer.domain.model.BookingRequestWrapper;
 import com.sahydo.bookingapp.producer.utilities.BookingRequestsConstants;
 
 @Service
@@ -18,12 +20,11 @@ public class BookingRequestImplService implements IBookingRequestService {
 	private RestTemplate restTemplate = new RestTemplate();
 
 	@Override
-	public List<BookingRequest> findAll() {
+	public List<BookingRequestWrapper> findAll() {
 		try {
 			String url = BookingRequestsConstants.BOOKING_API_URL;
-			BookingRequest[] array = restTemplate.getForObject(url,
-					BookingRequest[].class);
-			return Arrays.asList(array);
+			ResponseEntity<BookingRequestWrapper[]> response = restTemplate.getForEntity(url, BookingRequestWrapper[].class);
+			return Arrays.asList(response.getBody());
 		} catch (Exception e) {
 			System.err.println(e);
 			return null;
@@ -31,8 +32,8 @@ public class BookingRequestImplService implements IBookingRequestService {
 	}
 
 	@Override
-	public BookingRequest findById(Long id) {
-		return restTemplate.getForObject(BookingRequestsConstants.BOOKING_API_URL + "/" + id, BookingRequest.class);
+	public BookingRequestWrapper findById(Long id) {
+		return restTemplate.getForObject(BookingRequestsConstants.BOOKING_API_URL + "/" + id, BookingRequestWrapper.class);
 	}
 
 	@Override

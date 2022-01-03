@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sahydo.bookingapp.producer.domain.model.BookingRequest;
+import com.sahydo.bookingapp.producer.domain.model.BookingRequestWrapper;
 import com.sahydo.bookingapp.producer.domain.service.IBookingRequestService;
 
 
@@ -32,8 +33,8 @@ public class RabbitMQRestController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public HttpEntity<List<BookingRequest>> findAll() {
-		List<BookingRequest> bookingRequests = bookingRequestService.findAll();
+	public HttpEntity<List<BookingRequestWrapper>> findAll() {
+		List<BookingRequestWrapper> bookingRequests = bookingRequestService.findAll();
 		return new ResponseEntity<>(bookingRequests, HttpStatus.OK);
 	}
 
@@ -46,8 +47,8 @@ public class RabbitMQRestController {
 	 */
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public HttpEntity<BookingRequest> findById(@PathVariable Long id) {
-		BookingRequest bookingRequest = bookingRequestService.findById(id);
+	public HttpEntity<BookingRequestWrapper> findById(@PathVariable Long id) {
+		BookingRequestWrapper bookingRequest = bookingRequestService.findById(id);
 		return new ResponseEntity<>(bookingRequest, HttpStatus.OK);
 	}
 

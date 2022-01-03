@@ -2,21 +2,18 @@ version: "3.9"
 services: 
   mysql-db:
     image: mysql
-    container_name: booking_app_db_container
-    command: --default-authentication-plugin=mysql_native_password
+    container_name: booking-app-db-container
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 12345678
       MYSQL_DATABASE: booking_app_db
-    networks:
-      - backend_net
 
   api:
     build: ./api
-    container_name: booking_app_api_container
+    container_name: booking-app-api-container
     restart: always
     environment:
-      - DATABASE_HOST=booking_app_db_container
+      - DATABASE_HOST=booking-app-db-container
       - DATABASE_USER=root
       - DATABASE_PASSWORD=12345678
       - DATABASE_NAME=booking_app_db
@@ -27,20 +24,36 @@ services:
      - "8080:8080"
     depends_on:
       - mysql-db
-    networks:
-      - backend_net
+  consumer:
+    build: ./consumer
+    container_name: booking-app-consumer-container
+    restart: always
+    environment:
+      - BOOKING_API_URL=http://booking-app-api-container:8080
+      - RABBITMQ_HOST=booking-app-rabbitmq-container
+      - RABBITMQ_PORT=5672
+    depends_on:
+      - rabbitmq
+      # - producer
+      - api 
+  # producer:
+  #   build: ./producer
+  #   container_name: booking-app-producer-container
+  #   restart: always
+  #   environment:
+  #     - BOOKING_API_URL=http://booking-app-api-container:8080
+  #     - RABBITMQ_HOST=booking-app-rabbitmq-container
+  #     - RABBITMQ_PORT=5672
+  #   depends_on:
+  #     - rabbitmq
+  #     - api
+  #   ports:
+  #     - "8081:8081"
 
   rabbitmq:
-    container_name: booking_app_rabbitmq_container
+    container_name: booking-app-rabbitmq-container
     restart: always
     image: rabbitmq:management
     ports:
       - "5672:5672"
       - "15672:15672"
-    networks:
-      - rabbitmq_net
-networks:
-  backend_net:
-    driver: bridge
-  rabbitmq_net:
-    driver: bridge
