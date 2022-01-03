@@ -34,21 +34,21 @@ services:
       - RABBITMQ_PORT=5672
     depends_on:
       - rabbitmq
-      # - producer
+      - producer
       - api 
-  # producer:
-  #   build: ./producer
-  #   container_name: booking-app-producer-container
-  #   restart: always
-  #   environment:
-  #     - BOOKING_API_URL=http://booking-app-api-container:8080
-  #     - RABBITMQ_HOST=booking-app-rabbitmq-container
-  #     - RABBITMQ_PORT=5672
-  #   depends_on:
-  #     - rabbitmq
-  #     - api
-  #   ports:
-  #     - "8081:8081"
+  producer:
+    build: ./producer
+    container_name: booking-app-producer-container
+    restart: always
+    environment:
+      - BOOKING_API_URL=http://booking-app-api-container:8080
+      - RABBITMQ_HOST=booking-app-rabbitmq-container
+      - RABBITMQ_PORT=5672
+    depends_on:
+      - rabbitmq
+      - api
+    ports:
+      - "8081:8081"
 
   rabbitmq:
     container_name: booking-app-rabbitmq-container
