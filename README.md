@@ -136,5 +136,28 @@ sh deploy.sh
 
 Check the next [Postman Collection](docs/BookingRequest%20API%20-%20Postman%20Collection.postman_collection.json) to test the endpoints.
 
+### Endpoints:
+
+Backend Port: 8080
+Producer Port: 8081
+
+- Get all Booking Requests: GET [/bookingRequests](http://localhost:8081/bookingRequests)
+- Get by ID: GET [/bookingRequests/1]([/bookingRequests](http://localhost:8081/bookingRequests/1))
+- Create a Booking Requests: POST /bookingRequests
+
+Body to create the Booking Requests:
+```
+{
+    "checkInDate": "2022-01-04",
+    "checkOutDate": "2022-01-05",
+    "holderEmail": "santiagodorado@unicauca.edu.co",
+    "holderName": "Santiago",
+    "numberOfPeople":"2",
+    "numberOfRooms": "1",
+    "numberOfMinors": "1"
+}
+```
+___
+
 # Author
 Santiago Hyun Dorado. [@sahydo](https://sahydo.com/)
