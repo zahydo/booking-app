@@ -13,3 +13,15 @@ docker rm -f booking_app_db_container
 echo "STEP 5: Up the containers"
 docker compose up --build -d
 echo "STEP 6 (Optional): Check the logs, replacing <CONTAINER_NAME> in the following command: docker logs -f <CONTAINER_NAME>"
+echo "STEP 7: Creates the first Booking Request to create the exchanges and the queues in the RabbitMQ server"
+echo "curl --location --request POST 'localhost:8081/bookingRequests' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+        \"checkInDate\": \"2022-12-04\",
+        \"checkOutDate\": \"2022-12-05\",
+        \"holderEmail\": \"santiagodorado@unicauca.edu.co\",
+        \"holderName\": \"Santiago\",
+        \"numberOfPeople\":\"2\",
+        \"numberOfRooms\": \"1\",
+        \"numberOfMinors\": \"1\"
+    }'"

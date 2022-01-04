@@ -132,5 +132,9 @@ In the terminal run the following command:
 sh deploy.sh
 ```
 
+## Test the Producer|Backend API
+
+Check the next [Postman Collection](docs/BookingRequest%20API%20-%20Postman%20Collection.postman_collection.json) to test the endpoints.
+
 # Author
 Santiago Hyun Dorado. [@sahydo](https://sahydo.com/)
