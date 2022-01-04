@@ -137,6 +137,7 @@ sh deploy.sh
 Check the next [Postman Collection](docs/BookingRequest%20API%20-%20Postman%20Collection.postman_collection.json) to test the endpoints.
 
 ### Endpoints:
+The convention to name endpoints was followed. No actions in URI, just subjects.
 
 Backend Port: 8080
 Producer Port: 8081
