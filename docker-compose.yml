@@ -7,6 +7,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 12345678
       MYSQL_DATABASE: booking_app_db
+    volumes:
+      - data-volume:/var/lib/mysql
 
   api:
     build: ./api
@@ -57,3 +59,7 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    volumes:
+      - data-volume:/var/lib/rabbitmq
+volumes:
+  data-volume:
