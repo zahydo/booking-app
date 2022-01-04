@@ -1,0 +1,163 @@
+{
+	"info": {
+		"_postman_id": "e028ad93-f98a-4dad-938d-987f7c0ad22c",
+		"name": "BookingRequest API definition",
+		"description": "This API allows the next actions for Booking Requests:\n\n*   List all\n*   List by Id\n*   Creates a Booking Request",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List All (API)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localhost_api}}/bookingRequests",
+					"host": [
+						"{{localhost_api}}"
+					],
+					"path": [
+						"bookingRequests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get by Id (API)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localhost_api}}/bookingRequests/1",
+					"host": [
+						"{{localhost_api}}"
+					],
+					"path": [
+						"bookingRequests",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creates a BookingRequest (API)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"checkInDate\": \"2022-01-04\",\n    \"checkOutDate\": \"2022-01-05\",\n    \"holderEmail\": \"santiagodorado@unicauca.edu.co\",\n    \"holderName\": \"Santiago\",\n    \"numberOfPeople\":\"2\",\n    \"numberOfRooms\": \"1\",\n    \"numberOfMinors\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost_api}}/bookingRequests",
+					"host": [
+						"{{localhost_api}}"
+					],
+					"path": [
+						"bookingRequests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List All (Producer)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localhost_producer}}/bookingRequests",
+					"host": [
+						"{{localhost_producer}}"
+					],
+					"path": [
+						"bookingRequests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get by Id (Producer)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localhost_producer}}/bookingRequests/1",
+					"host": [
+						"{{localhost_producer}}"
+					],
+					"path": [
+						"bookingRequests",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creates a BookingRequest (Producer)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"checkInDate\": \"2022-01-04\",\n    \"checkOutDate\": \"2022-01-05\",\n    \"holderEmail\": \"santiagodorado@unicauca.edu.co\",\n    \"holderName\": \"Santiago\",\n    \"numberOfPeople\":\"2\",\n    \"numberOfRooms\": \"1\",\n    \"numberOfMinors\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost_producer}}/bookingRequests",
+					"host": [
+						"{{localhost_producer}}"
+					],
+					"path": [
+						"bookingRequests"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "localhost_api",
+			"value": "localhost:8080"
+		},
+		{
+			"key": "localhost_producer",
+			"value": "localhost:8081",
+			"type": "string"
+		}
+	]
+}
