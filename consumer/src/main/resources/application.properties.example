@@ -1,8 +1,0 @@
-spring.main.web-application-type=none
-spring.rabbitmq.listener.simple.retry.enabled: true
-spring.rabbitmq.listener.simple.retry.initial-interval: 3s
-spring.rabbitmq.listener.simple.retry.max-attempts: 5
-spring.rabbitmq.listener.simple.retry.max-interval: 10s
-spring.rabbitmq.listener.simple.retry.multiplier: 2
-spring.rabbitmq.host:${RABBITMQ_HOST:localhost}
-spring.rabbitmq.port:${RABBITMQ_PORT:5672}

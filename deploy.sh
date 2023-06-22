@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "STEP 1: Clean existing containers"
-docker compose down
+docker compose down -v
 echo "STEP 2: Create a temporary MySQL DB to build the API .jar"
 docker run --rm --name booking_app_db_container -e MYSQL_ROOT_PASSWORD=12345678 -e MYSQL_DATABASE=booking_app_db -d -p 3307:3306 mysql
 echo "STEP 3: Build the .jars"

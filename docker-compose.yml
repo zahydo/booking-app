@@ -46,6 +46,7 @@ services:
       - "5672:5672"
       - "15672:15672"
     volumes:
-      - data-volume:/var/lib/rabbitmq
+      - queue-volume:/var/lib/rabbitmq
 volumes:
   data-volume:
+  queue-volume:
