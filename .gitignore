@@ -44,3 +44,5 @@ replay_pid*
 
 # FOR IDEs
 .settings
+
+*.env

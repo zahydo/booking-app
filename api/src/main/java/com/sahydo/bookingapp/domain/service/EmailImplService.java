@@ -9,6 +9,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.sahydo.bookingapp.presentation.rest.exception.BookingRequestError;
+import com.sahydo.bookingapp.utilities.EmailTemplateUtil;
 
 @Service
 public class EmailImplService implements IEmailService {
@@ -18,12 +19,15 @@ public class EmailImplService implements IEmailService {
 
 	@Override
 	public void sendSimpleEmail(final String to, final String subject, final String body) {
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("noreply@bogus.com");
-		message.setTo(to);
-		message.setSubject(subject);
-		message.setText(body);
-		emailSender.send(message);
+
+        if (EmailTemplateUtil.IS_ENABLED_EMAILING) {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom("noreply@bogus.com");
+            message.setTo(to);
+            message.setSubject(subject);
+            message.setText(body);
+            emailSender.send(message);
+        }
 	}
 
 	@Override
